@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>edsion0412_plus</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+<script src="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css" rel="stylesheet" />
+<style>
+	body { margin: 0; padding: 0; }
+	#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+<script>
+	mapboxgl.accessToken = 'pk.eyJ1IjoiZ2l5b3VuZyIsImEiOiJjazM1NzJtbHMwd2kwM25tcTFvNDZyazZ5In0.ioTeqvJ9LB5lHxkesxX_ZQ';
+var map = new mapboxgl.Map({
+container: 'map',
+style: 'mapbox://styles/mapbox/streets-v11',
+center: [127.362588,36.365776],
+zoom: 15.99,
+pitch: 40,
+bearing: 20,
+antialias: true
+});
+
+map.on('load', function() {
+map.addSource('buildingplan', {
+// GeoJSON Data source used in vector tiles, documented at
+// https://gist.github.com/ryanbaumann/a7d970386ce59d11c16278b90dde094d
+'type': 'geojson',
+//'data': 'C:\\Users\\sky\\Downloads\\resicommer1.geojson'
+'data' : 'C:\\Users\\sky\\Desktop\\out.geojson'
+});
+
+map.addLayer({
+'id': 'room-extrusion',
+'type': 'fill-extrusion',
+'source': 'buildingplan',
+'paint': {
+    //'fill-extrusion-base':['get', 'landuse'],
+    'fill-extrusion-color': ['get', 'color'],
+    'fill-extrusion-height': ['get', 'height'],
+    'fill-extrusion-opacity': 1.0
+
+}
+});
+
+});
+</script>
+
+</body>
+</html>
